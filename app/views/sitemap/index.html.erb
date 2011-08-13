@@ -1,12 +1,15 @@
 <h1>Sitemap</h1>
 <%= link_to Spree::Config[:site_name], @public_dir %><br />
-<% unless @pages.blank? %>
-  <ul>
-  <% @pages.each do |page| %>
-    <li><%= link_to page.title, @public_dir + page.slug %></li>
+
+<ul>
+  <%= render "shared/other_links", :public_dir => @public_dir %>      
+  <% unless @pages.blank? %>    
+    <% @pages.each do |page| %>
+      <li><%= link_to page.title, @public_dir + page.slug %></li>
+    <% end %>
   <% end %>
-  </ul>
-<% end %>
+</ul>
+
 <% unless @taxonomies.blank? %>  
   <% @taxonomies.each do |taxonomy| %>
     <% taxons = Taxon.find_all_by_taxonomy_id(taxonomy.id) %>
@@ -20,7 +23,7 @@
   
 <% end %>
 <% unless @products.blank? %>
-  <h3>Products</h3>
+  <h3><%= t('products') %></h3>
   <ul>
     <% @products.each do |product| %>
       <li><%= link_to product.name, @public_dir + "products/" + product.permalink %></li>
